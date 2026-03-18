@@ -3,6 +3,9 @@ name: Sample Book App Workflow
 on:
   push:
     branches: ["main"]
+    paths-ignore: 
+      - 'README.md'
+      - 'Jenkinsfile'
   workflow_dispatch:
 
 jobs:
