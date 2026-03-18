@@ -12,6 +12,7 @@ runs:
       with:
         repository: 'mtararujs/RTU-sample-API-automation-2026'
         clean: 'false'
+        path: 'e2e-api-tests'
     - run: echo "Testing Sample Book Application service has started on ${{ inputs.environment }} environment.."
       shell: bash
     - name: Install dependecies
