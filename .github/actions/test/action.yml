@@ -1,0 +1,23 @@
+name: 'Run API Tests'
+description: 'Action to run API tests against Sample Book App service'
+inputs:
+  environment:
+    description: 'Environment where to run Sample Book App API tests against'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v6
+      with:
+        repository: 'mtararujs/RTU-sample-API-automation-2026'
+    - run: echo "Testing Sample Book Application service has started on ${{ inputs.environment }} environment.."
+      shell: bash
+    - name: Install dependecies
+      run: npm install
+      shell: bash
+    - name: Running API tests
+      run: npm run books BOOKS_${{ inputs.environment }}
+      shell: bash
+    - run: echo "Testing Sample Book Application service finished.."
+      shell: bash
