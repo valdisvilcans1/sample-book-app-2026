@@ -19,7 +19,7 @@ pipeline {
         stage('deploy-dev') {
             steps {
                 script{
-                    deploy("DEV", 1010)
+                    deploy("dev")
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('deploy-stg') {
             steps {
                 script{
-                    deploy("STG", 2020)
+                    deploy("stg")
                 }
             }
         }
@@ -47,7 +47,7 @@ pipeline {
         stage('deploy-prd') {
             steps {
                 script{
-                    deploy("PRD", 3030)
+                    deploy("stg")
                 }
             }
         }
@@ -69,18 +69,13 @@ def build(){
     sh "docker push mtararujs/sample-book-app:${BUILD_NUMBER}"
 }
 
-def deploy(String environment, int port){
-    // echo "Deployment to ${environment} environment has started.."
-    // git branch: 'main', poll: false, url: 'https://github.com/mtararujs/sample-book-app-2026.git'
-    // sh "npm install"
-    // sh "ls"
-    // sh "node_modules/.bin/pm2 delete \"books-${environment}\" || exit 0"
-    // sh "node_modules/.bin/pm2 start -n \"books-${environment}\" index.js -- ${port}"
-    // // sh "node_modules/.bin/pm2 reload -n \"books-${environment}\" index.js -- ${port}" //using 1 command to relaod service
-    // // sh "pm2 start -n "books-${environment}" index.js -- ${port}"
-    // // sh "pm2 start -n \"books-${environment}\" index.js -- ${port}"
-    // // bat "node_modules\\.bin\\pm2 start -n \"books-${environment}\" index.js -- -- ${port}"
-    // echo "Deployment to ${environment} environment finished.."
+def deploy(String environment){
+    echo "Deployment to ${environment} environment has started.."
+    sh "docker pull mtararujs/sample-book-app:${BUILD_NUMBER}"
+    sh "docker compose stop sample-book-app-${environment}"
+    sh "docker compose rm sample-book-app-${environment}"
+    sh "docker compose up -d sample-book-app-${environment}"
+    echo "Deployment to ${environment} environment finished.."
 }
 
 def test(String environment){
