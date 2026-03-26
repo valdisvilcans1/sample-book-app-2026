@@ -47,7 +47,7 @@ pipeline {
         stage('deploy-prd') {
             steps {
                 script{
-                    deploy("stg")
+                    deploy("prd")
                 }
             }
         }
