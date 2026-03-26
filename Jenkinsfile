@@ -63,7 +63,7 @@ pipeline {
 
 def build(){
     echo "Building sample-book-app.." 
-    sh "docker build -t mtararujs/sample-book-app:${BUILD_NUMBER} ."
+    sh "docker build --no-cache -t mtararujs/sample-book-app:${BUILD_NUMBER} ."
    
     echo "Pushing image to docker registry.." 
     sh "docker push mtararujs/sample-book-app:${BUILD_NUMBER}"
@@ -85,6 +85,6 @@ def test(String environment){
     sh "echo '${directory}'"
     sh "docker run --rm --network sample-book-app-compose-network -v '${directory}':/api-tests/mochawesome-report mtararujs/api-tests books BOOKS_${environment}"
     sh "ls"
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'mochawesome.html', followSymlinks: false
+    archiveArtifacts allowEmptyArchive: true, artifacts: 'mochawesome.json', followSymlinks: false
     echo "Testing Sample Book Application service finished.."
 }
