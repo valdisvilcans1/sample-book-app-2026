@@ -79,9 +79,9 @@ def deploy(String environment){
 }
 
 def test(String environment){
-    // echo "Testing Sample Book Application service has started on ${environment} environment.."
-    // git branch: 'main', poll: false, url: 'https://github.com/mtararujs/RTU-sample-API-automation-2026.git'
-    // sh "npm install"
-    // sh "npm run books BOOKS_${environment}"
-    // echo "Testing Sample Book Application service finished.."
+    echo "Testing Sample Book Application service has started on ${environment} environment.."
+    sh "docker pull mtararujs/api-tests:latest"
+    sh "docker run --rm --network sample-book-app-compose-network -v $PWD/test-reports/dev:/api-tests/mochawesome-report mtararujs/api-tests books BOOKS_${environment}"
+    sh "ls"
+    echo "Testing Sample Book Application service finished.."
 }
