@@ -1,0 +1,29 @@
+services:
+  sample-book-app-dev:
+    build: .
+    image: mtararujs/sample-book-app
+    container_name: sample-book-app-dev
+    ports:
+      - 1000:1050  
+    networks:
+      - sample-book-app-compose-network
+  sample-book-app-stg:
+    build: .
+    image: mtararujs/sample-book-app
+    container_name: sample-book-app-stg
+    ports:
+      - 2000:1050
+    networks:
+      - sample-book-app-compose-network  
+  sample-book-app-prd:
+    build: .
+    image: mtararujs/sample-book-app
+    container_name: sample-book-app-prd
+    ports:
+      - 3000:1050
+    networks:
+      - sample-book-app-compose-network
+
+networks:
+  sample-book-app-compose-network:
+    name: sample-book-app-compose-network
