@@ -60,13 +60,13 @@ pipeline {
 def build() {
     echo "Installing all necessary node dependencies.."
     bat "npm install"
-    bat "npm install pm2"
-    echo " Dependencies successfully installed.."
+    // bat "npm install pm2"
+    echo "Dependencies successfully installed.."
 }
 
 def deploy(String environment, int port) {
     echo "Deployment to ${environment} environment has started.."
-    bat  "pm2 start -n 'books-${environment}' index.js -- -- ${port}"
+    bat  "node_modules/.bin/pm2 start -n 'books-${environment}' index.js -- -- ${port}"
     echo "Deployment to ${environment} environment finished.."
 }
 
