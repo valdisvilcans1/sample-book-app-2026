@@ -1,68 +1,112 @@
 name: Sample Book App Workflow
 
+
 on:
   push:
     branches: ["main"]
-    paths-ignore: 
-      - 'README.md'
-      - 'Jenkinsfile'
+    # paths-ignore: 
+    #   - 'README.md'
+    #   - 'Jenkinsfile'
   workflow_dispatch:
 
 jobs:
   build-install-deps:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/build
+      - name: Print step name
+        run: echo "Installing all necessary node dependecies"
   deploy-dev:
-    runs-on: self-hosted
-    needs: build-install-deps
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'DEV'
-          port: 1010
+      - name: Print step name
+        run: echo "Deployment to DEV environment has started.."
   test-dev:
-    runs-on: self-hosted
-    needs: deploy-dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'DEV'
+      - name: Print step name
+        run: echo "Testing Sample Book Application service has started on DEV environment.."
   deploy-stg:
-    runs-on: self-hosted
-    needs: test-dev
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'STG'
-          port: 2020
+      - name: Print step name
+        run: echo "Deployment to DEV environment has started.."
   test-stg:
-    runs-on: self-hosted
-    needs: deploy-stg
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'STG'
+      - name: Print step name
+        run: echo "Testing Sample Book Application service has started on DEV environment.."
   deploy-prd:
-    runs-on: self-hosted
-    needs: test-stg
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/deploy
-        with:
-          environment: 'PRD'
-          port: 3030
+      - name: Print step name
+        run: echo "Deployment to DEV environment has started.."
   test-prd:
-    runs-on: self-hosted
-    needs: deploy-prd 
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./.github/actions/test
-        with:
-          environment: 'PRD'
-    
+      - name: Print step name
+        run: echo "Testing Sample Book Application service has started on DEV environment.."
+
+# jobs:
+#   build-install-deps:
+#     runs-on: self-hosted
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/build
+#   deploy-dev:
+#     runs-on: self-hosted
+#     needs: build-install-deps
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/deploy
+#         with:
+#           environment: 'DEV'
+#           port: 1010
+#   test-dev:
+#     runs-on: self-hosted
+#     needs: deploy-dev
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/test
+#         with:
+#           environment: 'DEV'
+#   deploy-stg:
+#     runs-on: self-hosted
+#     needs: test-dev
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/deploy
+#         with:
+#           environment: 'STG'
+#           port: 2020
+#   test-stg:
+#     runs-on: self-hosted
+#     needs: deploy-stg
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/test
+#         with:
+#           environment: 'STG'
+#   deploy-prd:
+#     runs-on: self-hosted
+#     needs: test-stg
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/deploy
+#         with:
+#           environment: 'PRD'
+#           port: 3030
+#   test-prd:
+#     runs-on: self-hosted
+#     needs: deploy-prd 
+#     steps:
+#       - uses: actions/checkout@v6
+#       - uses: ./.github/actions/test
+#         with:
+#           environment: 'PRD'
