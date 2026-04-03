@@ -60,11 +60,11 @@ pipeline {
 def build() {
     echo "Installing all necessary node dependencies.."
     bat "npm install"
-    bat "dir"
 }
 
 def deploy(String environment) {
     echo "Deployment to ${environment} environment has started.."
+    bat "dir"
     echo "Deployment to ${environment} environment finished.."
 }
 
