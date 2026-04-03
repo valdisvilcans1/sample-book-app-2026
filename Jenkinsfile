@@ -78,7 +78,7 @@ def test(String environment) {
     echo "Testing Sample Book Application service has started on ${environment} environment.."
     git branch: 'main', poll: false, url: 'https://github.com/mtararujs/RTU-sample-API-automation-2026.git'
     bat "npm install"
-    bat "dir tests\\scenarios\\books"
-    bat "npm run books BOOKS_${environment}"
+    // bat "dir tests\\scenarios\\books"
+    bat "node_modules\\.bin\\mocha tests\\scenarios\\books\\list_books.js npm run books BOOKS_${environment}"
     echo "Testing Sample Book Application service finished.."
 }
