@@ -63,28 +63,28 @@ pipeline {
 
 def build(){
     echo "Building sample-book-app.." 
-    sh "docker build --no-cache -t mtararujs/sample-book-app ."
+    bat "docker build --no-cache -t mtararujs/sample-book-app ."
    
     echo "Pushing image to docker registry.." 
-    sh "docker push mtararujs/sample-book-app"
+    bat "docker push mtararujs/sample-book-app"
 }
 
 def deploy(String environment){
     echo "Deployment to ${environment} environment has started.."
-    sh "docker pull mtararujs/sample-book-app"
-    sh "docker compose stop sample-book-app-${environment}"
-    sh "docker compose rm sample-book-app-${environment}"
-    sh "docker compose up -d sample-book-app-${environment}"
+    bat "docker pull mtararujs/sample-book-app"
+    bat "docker compose stop sample-book-app-${environment}"
+    bat "docker compose rm sample-book-app-${environment}"
+    bat "docker compose up -d sample-book-app-${environment}"
     echo "Deployment to ${environment} environment finished.."
 }
 
 def test(String environment){
     echo "Testing Sample Book Application service has started on ${environment} environment.."
-    sh "docker pull mtararujs/api-tests:latest"
+    bat "docker pull mtararujs/api-tests:latest"
     def directory = pwd()
-    sh "echo '${directory}'"
-    sh "docker run --rm --network sample-book-app-compose-network -v '${directory}':/api-tests/mochawesome-report mtararujs/api-tests books BOOKS_${environment}"
-    sh "ls"
+    bat "echo '${directory}'"
+    bat "docker run --rm --network sample-book-app-compose-network -v '${directory}':/api-tests/mochawesome-report mtararujs/api-tests books BOOKS_${environment}"
+    bat "ls"
     archiveArtifacts allowEmptyArchive: true, artifacts: 'mochawesome.json', followSymlinks: false
     echo "Testing Sample Book Application service finished.."
 }
