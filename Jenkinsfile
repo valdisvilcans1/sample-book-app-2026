@@ -7,43 +7,66 @@ pipeline {
         stage('build-install-deps') {
             steps {
                 echo "Installing all necessary node dependencies.."
+                script {
+                    build()
+                }
             }
         }
         stage('deploy-dev') {
             steps {
-                echo "Deployment to DEV environment has started.."
-                echo "Deployment to DEV environment finished.."
+                script {
+                    deploy("DEV")
+                }
             }
         }
         stage('test-dev') {
             steps {
-                echo "Testing Sample Book Application service has started on DEV environment.."
-                echo "Testing Sample Book Application service finished.."
+                script {
+                    test("DEV")
+                }
             }
         }
         stage('deploy-stg') {
             steps {
-                echo "Deployment to STG environment has started.."
-                echo "Deployment to STG environment finished.."
+                script {
+                    deploy("STG")
+                }
             }
         }
         stage('test-stg') {
             steps {
-                echo "Testing Sample Book Application service has started on STG environment.."
-                echo "Testing Sample Book Application service finished.."
+                script {
+                    test("STG")
+                }
             }
         }
         stage('deploy-prd') {
             steps {
-                echo "Deployment to PRD environment has started.."
-                echo "Deployment to PRD environment finished.."
+                script {
+                    deploy("PRD")
+                }
             }
         }
         stage('test-prd') {
             steps {
-                echo "Testing Sample Book Application service has started on PRD environment.."
-                echo "Testing Sample Book Application service finished.."
+                script {
+                    test("PRD")
+                }
             }
         }
     }
+}
+
+def build() {
+    echo "Installing all necessary node dependencies.."
+}
+
+def deploy(String environment) {
+    echo "Deployment to ${environment} environment has started.."
+    echo "Deployment to ${environment} environment finished.."
+}
+
+def test(String environment) {
+    echo "Testing Sample Book Application service has started on ${environment} environment.."
+    echo "Testing Sample Book Application service finished.."
 }
