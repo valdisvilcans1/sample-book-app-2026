@@ -68,7 +68,6 @@ def deploy(String environment, int port) {
     echo "Deployment to ${environment} environment has started.."
     git branch: 'main', poll: false, url: 'https://github.com/valdisvilcans1/sample-book-app-2026.git'
     bat "npm install"
-    bat  "dir"
     bat  "node_modules\\.bin\\pm2 delete books-${environment} || exit 0"
     bat  "node_modules\\.bin\\pm2 start -n books-${environment} index.js -- ${port}"
     echo "Deployment to ${environment} environment finished.."
@@ -78,7 +77,6 @@ def test(String environment) {
     echo "Testing Sample Book Application service has started on ${environment} environment.."
     git branch: 'main', poll: false, url: 'https://github.com/mtararujs/RTU-sample-API-automation-2026.git'
     bat "npm install"
-    // bat "dir tests\\scenarios\\books"
-    bat "node_modules\\.bin\\mocha tests\\scenarios\\books\\list_books.js npm run books BOOKS_${environment}"
+    bat "npm run books BOOKS_${environment}"
     echo "Testing Sample Book Application service finished.."
 }
