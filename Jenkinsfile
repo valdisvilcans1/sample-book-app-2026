@@ -60,6 +60,8 @@ pipeline {
 def build() {
     echo "Installing all necessary node dependencies.."
     bat "npm install"
+    bat "npm install pm2"
+    echo " Dependencies successfully installed.."
 }
 
 def deploy(String environment, int port) {
